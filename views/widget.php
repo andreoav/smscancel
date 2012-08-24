@@ -10,12 +10,10 @@ if( isset( $apikey ) && ! empty( $apikey ) ) {
   ?>
   
   <!-- formulário -->
-  <form action="#" id="cancelarInscricaoForm">
 	  <label>Celular para cancelar:</label><br />
 	  <input type="text" name="cancelarCelular" id="cancelarCelular" />
 	  <input type="hidden" name="cancelarApikey" id="cancelarApikey" value="<?php echo $apikey; ?>" />
-  </form>
-  <div id="cancelStatus"></div>
+    <div id="cancelStatus"></div>
   <!--/ formulário -->
   
   <?php
