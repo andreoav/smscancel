@@ -1,6 +1,6 @@
 === NitroSMS Cancelamento de Inscrição ===
 
-Contributors: username1, username2 (this should be a list of wordpress.org userid's)
+Contributors: username1, username2
 Tags: widget, boilerplate, nitrosms
 Requires at least: 3.3.1
 Tested up to: 3.3.1
