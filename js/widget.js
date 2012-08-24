@@ -1,7 +1,7 @@
 /*
 	Masked Input plugin for jQuery
 	Copyright (c) 2007-2011 Josh Bush (digitalbush.com)
-	Licensed under the MIT license (http://digitalbush.com/projects/masked-input-plugin/#license) 
+	Licensed under the MIT license (http://digitalbush.com/projects/masked-input-plugin/#license)
 	Version: 1.3
 */
 if (! jQuery().mask ) {
@@ -10,32 +10,39 @@ if (! jQuery().mask ) {
 
 
 jQuery(document).ready(function() {
-	
+
 	jQuery('#cancelarCelular').mask('+55 (99) 99999999?9');
-	jQuery('#cancelarInscricaoForm').submit(function() {		
-		
+	jQuery('#cancelarInscricaoForm').submit(function() {
+
 		var dados = {
 			apikey: jQuery('#cancelarApikey').val(),
 			celular: jQuery('#cancelarCelular').val()
 		}
-		
+
 		if (dados.celular != '' && dados.celular.length > 16)
 		{
 			jQuery('#cancelarInscricaoForm')[0].reset();
 			jQuery('#cancelarInscricaoForm').fadeOut('slow');
 			jQuery('#cancelStatus').html('Aguarde...');
-			
+
 			jQuery.ajax({
 				url: 'http://api.nitrosms.com.br/api/cancelaInscricao.json',
 				type: 'POST',
 				data: dados,
 				success: function(data) {
-					jQuery('#cancelStatus').html('<strong>' + data.msg + '</strong>').hide();
-					jQuery('#cancelStatus').fadeIn('slow');
-					setTimeout(function() {
-						jQuery('#cancelStatus').html('').fadeOut('slow');
-						jQuery('#cancelarInscricaoForm').fadeIn('slow');
-					}, 2000);
+					if (data.status == 1)
+					{
+						jQuery('#cancelStatus').html('<strong>' + data.msg + '</strong>').hide();
+						jQuery('#cancelStatus').fadeIn('slow');
+						setTimeout(function() {
+							jQuery('#cancelStatus').html('').fadeOut('slow');
+							jQuery('#cancelarInscricaoForm').fadeIn('slow');
+						}, 4000);
+					}
+					else
+					{
+						alert('Erro!');
+					}
 				},
 				error: function() {
 					jQuery('#cancelarInscricaoForm').show();
@@ -43,9 +50,9 @@ jQuery(document).ready(function() {
 				}
 			});
 		}
-		
+
 		return false;
 	});
-	
-	
+
+
 });
