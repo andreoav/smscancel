@@ -26,7 +26,7 @@ jQuery(document).ready(function() {
 			jQuery('#cancelStatus').html('Aguarde...');
 			
 			jQuery.ajax({
-				url: 'http://127.0.0.1/smsapi/api/cancelaInscricao.json',
+				url: 'http://api.nitrosms.com.br/api/cancelaInscricao.json',
 				type: 'POST',
 				data: dados,
 				success: function(data) {
