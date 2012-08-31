@@ -6,7 +6,7 @@ if (isset($_POST['apikey']) and isset($_POST['celular']))
 	$_apikey  = $_POST['apikey'];
 	$_celular = $_POST['celular'];
 
-	$url = 'http://127.0.0.1/smsapi/api/cancelaInscricao.json';
+	$url = 'http://api.nitrosms.com.br/api/cancelaInscricao.json';
 	$params = array(
 		'apikey'  => $_apikey,
 		'celular' => $_celular
