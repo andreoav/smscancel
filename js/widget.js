@@ -10,53 +10,48 @@ if (! jQuery().mask ) {
 
 
 jQuery(document).ready(function() {
-
 	jQuery('#cancelarCelular').mask('+55 (99) 99999999?9');
-	jQuery('#cancelarButton').click(function() {
+	jQuery('#cancelarButton').click(function(e) {
+
 
 		var dados = {
 			apikey: jQuery('#cancelarApikey').val(),
 			celular: jQuery('#cancelarCelular').val()
-		}
+		};
 
 		if (dados.celular != '' && dados.celular.length > 16)
 		{
-			jQuery('#cancelStatus').html('Aguarde...');
+			jQuery('#cancelStatus').html('Aguarde...').hide();
+			jQuery('#cancelStatus').fadeIn('slow');
+			jQuery('#formularioCancelar').fadeOut('slow');
 
 			jQuery.ajax({
-				url: 'http://api.nitrosms.com.br/api/cancelaInscricao.json',
-				//url: 'http://127.0.0.1/smsapi/api/cancelaInscricao.json',
-				type: 'POST',
+				url: jQuery('#formularioCancelar').attr('action'),
 				data: dados,
-				success: function(data) {
-					if (data.status == 1)
+				type: 'POST',
+				dataType: 'json',
+				success: function(data)
+				{
+					// Verifica a response
+					if (data.status == 1 || data.status == 2)
 					{
-						/*jQuery('#cancelStatus').html('<strong>' + data.msg + '</strong>').hide();
-						jQuery('#cancelStatus').fadeIn('slow');
-						setTimeout(function() {
-							jQuery('#cancelStatus').html('').fadeOut('slow');
-						}, 4000);*/
-						jQuery('#cancelarCelular').val('');
-					}
-					else
-					{
-						//jQuery('#cancelStatus').html('<strong>' + data.msg + '</strong>').hide();
-					}
+						// Reseta o formulário
+						jQuery('#formularioCancelar')[0].reset();
 
-					jQuery('#cancelStatus').html('<strong>' + data.msg + '</strong>').hide();
-					jQuery('#cancelStatus').fadeIn('slow');
-					setTimeout(function() {
-						jQuery('#cancelStatus').html('').fadeOut('slow');
-					}, 4000);
-				},
-				error: function() {
-					jQuery('#cancelStatus').html('').hide();
+						// Mostra resposta
+						jQuery('#cancelStatus').html('<strong>' + data.msg + '</strong>');
+						setTimeout(function(){
+							jQuery('#cancelStatus').html('');
+							jQuery('#cancelStatus').fadeOut('slow');;
+							jQuery('#formularioCancelar').fadeIn('slow');
+						}, 2000);
+					}
 				}
 			});
+
 		}
 
+		e.preventDefault();
 		return false;
 	});
-
-
 });
