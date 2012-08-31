@@ -36,7 +36,8 @@ jQuery(document).ready(function() {
 					if (data.status == 1 || data.status == 2)
 					{
 						// Reseta o formulário
-						jQuery('#formularioCancelar')[0].reset();
+						//jQuery('#formularioCancelar')[0].reset();
+						jQuery('#cancelarCelular').val('');
 
 						// Mostra resposta
 						jQuery('#cancelStatus').html('<strong>' + data.msg + '</strong>');
